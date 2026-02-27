@@ -1,0 +1,33 @@
+vlm/
+.venv/
+venv/
+__pycache__/
+.env
+outputs/
+chroma_db/
+
+# python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# env secrets
+.env
+.env.*
+
+# mac / editor
+.DS_Store
+.vscode/
+
+# outputs / local databases / generated artifacts
+outputs/
+chroma_db/
+*.sqlite*
+*.db
+
+# data (optional: decide below)
+data/

@@ -1,0 +1,14 @@
+opencv-python
+numpy
+tqdm
+Pillow
+
+torch
+transformers==4.56.0
+sentence-transformers
+chromadb
+
+accelerate
+sentencepiece
+python-dotenv
+openai

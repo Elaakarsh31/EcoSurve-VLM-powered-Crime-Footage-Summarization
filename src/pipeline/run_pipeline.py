@@ -42,7 +42,7 @@ from src.rag.index import build_chroma_from_summaries
 from src.summarization.segment_summarizer import SegmentSummarizer
 from src.video.frames import iter_sampled_frames, read_video_meta
 from src.video.io import list_videos
-from src.vlm.blip_captioner import BlipCaptioner
+from src.vision_model.blip_captioner import BlipCaptioner
 
 
 # ---------------------------------------------------------------------------

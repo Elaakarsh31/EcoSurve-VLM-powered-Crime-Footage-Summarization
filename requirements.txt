@@ -12,3 +12,4 @@ accelerate
 sentencepiece
 python-dotenv
 openai
+langchain-openai

@@ -17,11 +17,13 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 from .index import query_chroma
 
-load_dotenv()
+# Force-load .env immediately, searching upward from cwd.
+# override=True ensures a freshly rotated key is always picked up.
+load_dotenv(find_dotenv(), override=True)
 
 
 def _build_context(contexts: list[dict]) -> str:
@@ -70,7 +72,11 @@ def _answer_with_openai(question: str, contexts: list[dict]) -> str | None:
         - langchain_openai is not installed.
         - The API call fails for any reason (quota, network, etc.).
     """
-    if not os.getenv("OPENAI_API_KEY"):
+    # Re-read .env on every call so a rotated key is always picked up
+    # without restarting the process.
+    load_dotenv(find_dotenv(), override=True)
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
         return None
 
     try:
@@ -92,9 +98,10 @@ def _answer_with_openai(question: str, contexts: list[dict]) -> str | None:
     )
 
     try:
-        llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+        llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, api_key=api_key)
         return llm.invoke(prompt).content.strip()
-    except Exception:
+    except Exception as e:
+        print(f"[DEBUG] OpenAI call failed: {type(e).__name__}: {e}")
         return None
 
 

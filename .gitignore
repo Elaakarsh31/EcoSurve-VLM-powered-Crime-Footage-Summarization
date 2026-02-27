@@ -29,5 +29,3 @@ chroma_db/
 *.sqlite*
 *.db
 
-# data (optional: decide below)
-data/
